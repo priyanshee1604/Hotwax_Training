@@ -27,9 +27,46 @@ under the License.
                 <set field="headerItem" value="main"/><!-- this highlights the selected menu-item with name "main" -->
             </actions>
             <widgets>
-                <decorator-screen name="OfbizdemoCommonDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <label text="Hello World :P"/>
+                        <screenlet title="Add Ofbiz Demo">
+                            <include-form name="AddOfbizDemo" location="component://ofbizdemo/widget/OfbizdemoForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="FindOfbizDemo">
+        <section>
+            <actions>
+                <set field="headerItem" value="findOfbizDemo"/>
+                <set field="titleProperty" value="Priyanshee Sisodiya"/>
+                <set field="ofbizDemoCtx" from-field="parameters"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="OFBIZDEMO" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                                    <decorator-section name="search-options">
+                                        <include-form name="FindOfbizDemo" location="component://ofbizdemo/widget/OfbizdemoForms.xml"/>
+                                    </decorator-section>
+
+                                    <decorator-section name="search-results">
+                                        <include-form name="ListOfbizDemo" location="component://ofbizdemo/widget/OfbizdemoForms.xml"/>
+                                    </decorator-section>
+                                </decorator-screen>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.OfbizDemoViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
