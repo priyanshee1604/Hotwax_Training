@@ -30,5 +30,18 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="false"/>
         <override name="comments" optional="true"/>
     </service>
-    
+
+    <service name="createOfbizDemoByJavaService" engine="java" default-entity-name="OfbizDemo"
+             location="com.companyname.ofbizdemo.services.OfbizDemoServices" invoke="createOfbizDemo" auth="true">
+        <description>Create an Ofbiz Demo record using a service in JAVA.</description>
+        <auto-attributes include="nonpk" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="OUT" optional="false"/>
+    </service>
+
+    <service name="createOfbizDemoByGroovyService" engine="groovy" default-entity-name="OfbizDemo"
+             location="component://ofbizdemo/groovyScripts/ofbizdemo/OfbizDemoServices.groovy" invoke="createOfbizDemo" auth="true">
+        <description>Create an Ofbiz Demp record using a service in Groovy.</description>
+        <auto-attributes mode="OUT" optional="false" include="pk"/>
+        <auto-attributes mode="IN" optional="true" include="nonpk"/>
+    </service>
 </services>
